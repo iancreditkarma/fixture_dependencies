@@ -1,4 +1,4 @@
-require('sequel/extensions/inflector') unless [:singularize, :camelize, :underscore, :constantize].all?{|meth| "".respond_to?(meth)}
+#require('sequel/extensions/inflector') unless [:singularize, :camelize, :underscore, :constantize].all?{|meth| "".respond_to?(meth)}
 require 'erb'
 require 'yaml'
 
@@ -34,7 +34,7 @@ class FixtureDependencies
     ret = records.map do |record|
       if record.is_a?(Hash)
         record.map do |k, vals|
-          model = k.to_s.singularize
+          model = k.to_s#.singularize
           vals.map{|v| :"#{model}__#{v}"}
         end
       else
@@ -45,7 +45,7 @@ class FixtureDependencies
       if name
         use(record.to_sym)
       else
-        model_name = model_name.singularize
+        model_name = model_name#.singularize
         unless loaded[model_name.to_sym]
           puts "loading #{model_name}.yml" if verbose > 0
           load_yaml(model_name) 
